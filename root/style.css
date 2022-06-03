@@ -1,0 +1,51 @@
+input {
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 100%;  
+    background-color: #1897f9;
+    width: 60%;
+    height: 8%;
+    bottom: 6%;
+    margin-left: 20%;
+    margin-right: 20%;
+    position: fixed;
+    font-size: 100%;
+}
+
+p {
+    top: 100%;
+    font-size: 500%;
+    text-align: center;
+}
+
+.HautDePage {
+    background-color: #00183b;
+    text-align: center;
+    font-size: 400%;
+    color: #ffffff;
+    margin-bottom: 5%;
+    border-bottom: 2px solid black;
+}
+
+.rotated{
+    height: auto;
+    width: 100%;
+    animation: rotate;
+    object-fit: cover;
+    transition: all 500ms ease-out;
+    transform: rotate3d(1,0,0,89.8deg);
+}
+
+.piece {
+    height: 100%;
+    width: 100%;
+    transition: all 500ms ease-out;
+}
+
+#idImg {
+    width: 20%;
+    height: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-bottom: 5%;
+}
