@@ -12,6 +12,11 @@ input {
     font-size: 100%;
 }
 
+input:hover{
+    background-color: #4eb2ff;
+    cursor: pointer;
+}
+
 p {
     top: 100%;
     font-size: 500%;
@@ -23,7 +28,7 @@ p {
     text-align: center;
     font-size: 400%;
     color: #ffffff;
-    margin-bottom: 5%;
+    margin-bottom: 1%;
     border-bottom: 2px solid black;
 }
 
@@ -32,14 +37,14 @@ p {
     width: 100%;
     animation: rotate;
     object-fit: cover;
-    transition: all 500ms ease-out;
+    transition: all 250ms ease-out;
     transform: rotate3d(1,0,0,89.8deg);
 }
 
 .piece {
     height: 100%;
     width: 100%;
-    transition: all 500ms ease-out;
+    transition: all 250ms ease-out;
 }
 
 #idImg {
@@ -48,4 +53,14 @@ p {
     margin-left: 40%;
     margin-right: 40%;
     margin-bottom: 5%;
+}
+
+.bot {
+    margin-top: 20%;
+    transition: all 1000ms ease-out;
+}
+
+.top {
+    margin-top: 0%;
+    transition: all 2000ms ease-out .4s;
 }
