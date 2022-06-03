@@ -3,13 +3,17 @@ input {
     border-radius: 5px;
     font-size: 100%;  
     background-color: #1897f9;
-    width: 60%;
-    height: 8%;
-    bottom: 6%;
-    margin-left: 20%;
-    margin-right: 20%;
-    position: fixed;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 5%;
     font-size: 100%;
+}
+
+.qcm {
+    background-color: #4273bb;
+    color: #ffffff;
+    min-height: 140px;
 }
 
 input:hover{
@@ -23,13 +27,41 @@ p {
     text-align: center;
 }
 
+#nbLance {
+    margin-top: 8%;
+    font-size: 100%;
+}
+
 .HautDePage {
     background-color: #00183b;
-    text-align: center;
     font-size: 400%;
     color: #ffffff;
-    margin-bottom: 1%;
     border-bottom: 2px solid black;
+    text-align: center;
+}
+
+.contenant {
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color:bisque;
+    margin-top: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
+    height: 80%;
+    max-height: 401px;
+}
+
+.listpoint {
+    width: 30%;
+}
+
+#col {
+    background-color: #383838;
+    text-align: center;
+    font-size: 100%;
+    color: #ffffff;
+    border-right: 2px solid black;
+    height: 100%;
 }
 
 .rotated{
@@ -53,14 +85,4 @@ p {
     margin-left: 40%;
     margin-right: 40%;
     margin-bottom: 5%;
-}
-
-.bot {
-    margin-top: 20%;
-    transition: all 1000ms ease-out;
-}
-
-.top {
-    margin-top: 0%;
-    transition: all 2000ms ease-out .4s;
 }

@@ -17,7 +17,27 @@
     <header class="HautDePage">
         Pile ou Face : Lancez la pièce !
     </header>
-    <div id="main" class="bot"><img src="https://raw.githubusercontent.com/RomainGallerne/Pile-ou-Face/main/images/Pile.png" id="idImg" class="piece"></div>
-    <input type="button" id="lancer" value="Lancer la Pièce" onclick="Tirage()">
+    <div class="row">
+        <div class="col-md-2 col-12">
+            <div id="col">
+                <h5 class="centered">Historique</h5>
+                <ul id="historique">
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10 col-12">
+            <div class="contenant">
+                <div id="main">
+                    <img src="https://raw.githubusercontent.com/RomainGallerne/Pile-ou-Face/main/images/Pile.png" id="idImg" class="piece">
+                </div>
+                <p id="nbLance">Nombre de lancés : 0/15</p>
+                <input type="button" id="lancer" value="Lancer la Pièce" onclick="Tirage()">
+            </div>
+            <div class="qcm">
+
+            </div>
+        </div>
+    </div>
 </body>
 </html>

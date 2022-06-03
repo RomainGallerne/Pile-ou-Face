@@ -1,7 +1,9 @@
 var pile = 0;
 var face = 0;
+var nbLance = 0;
 
 function Tirage(){
+    nbLance += 1;
     document.getElementById('lancer').disabled = true;
     console.log(document.getElementById('lancer').disabled);
 
@@ -9,12 +11,15 @@ function Tirage(){
       console.log('Pile');
       pile += 1;
       Rotation("https://raw.githubusercontent.com/RomainGallerne/Pile-ou-Face/main/images/Pile.png","https://raw.githubusercontent.com/RomainGallerne/Pile-ou-Face/main/images/Face.png");
+      setTimeout(function(){document.getElementById("historique").innerHTML += "<li class='listpoint'>Pile</li>"},4500);
     }
     else {
       console.log('Face');
       face += 1;
       Rotation("https://raw.githubusercontent.com/RomainGallerne/Pile-ou-Face/main/images/Face.png","https://raw.githubusercontent.com/RomainGallerne/Pile-ou-Face/main/images/Pile.png");
+      setTimeout(function(){document.getElementById("historique").innerHTML += "<li class='listpoint'>Face</li>"},4500);
     }
+    setTimeout(function(){document.getElementById("nbLance").innerHTML = "Nombre de lancés : "+nbLance+"/15"},1000)
 }
 
 function Rotation(vraiIm,fausseIm){
@@ -22,7 +27,6 @@ function Rotation(vraiIm,fausseIm){
     let i = 0;
     if(vraiIm != document.getElementById("idImg").src){max+=1;}
     setTimeout(function(){
-        document.getElementById("main").setAttribute("class","top");
         let intervalId = setInterval(function(){
             document.getElementById("idImg").setAttribute("class","rotated");
             if(i>=max){
@@ -31,9 +35,6 @@ function Rotation(vraiIm,fausseIm){
                 document.getElementById("idImg").setAttribute("class","piece");
             }
             else {
-                if(i>=max-2){
-                    document.getElementById("main").setAttribute("class","bot");
-                }
                 i+=1;
                 document.getElementById("idImg").clientHeight = document.getElementById("idImg").clientWidth;
                 setTimeout(function(){
