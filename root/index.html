@@ -14,10 +14,55 @@
 </head>
 
 <body>
+    <!--?php
+                    try {
+                        $db = new PDO('mysql:host=mysql.etu.umontpellier.fr;
+                        dbname=e20200007056','e20200007056','5$MMthsJ9++7');
+
+                        $db->exec('source script.sql'); 
+
+                        $sql = $db->prepare('SELECT COUNT(*) FROM PileOuFace');
+                        $sql->execute();
+                        $nbuser = $sql->fetch(PDO::FETCH_ASSOC);
+
+                        if(!(isset($_POST['typepage']))){
+                            if(nbuser%2){
+                                //pageVersion1
+                                $_POST['typepage'] = 'normal';
+                            }
+                            else{
+                                //pageVersion2
+                                $_POST['typepage'] = 'truque';
+                            }
+                        } 
+
+                        if (isset($_POST['truque']) && isset($_POST['pourquoi'])){
+                            if (isset($_POST['apriori'])){
+
+                        $sql = $db->prepare('INSERT INTO PileOuFace VALUES (:typepage,:raison,:apriori,:critereXP,:criterePersonne,:critereReputation,:critereAutre)');
+                        $sql->bindValue(':typepage', $_POST['typepage'], PDO::PARAM_STR);
+                        $sql->bindValue(':raison', $_POST['raison'], PDO::PARAM_STR);
+                        $sql->bindValue(':apriori', $_POST['apriori'], PDO::PARAM_STR);
+                        $sql->bindValue(':critereXP', $_POST['critereXP'], PDO::PARAM_STR);
+                        $sql->bindValue(':criterePersonne', $_POST['criterePersonne'], PDO::PARAM_STR);
+                        $sql->bindValue(':critereReputation', $_POST['critereReputation'], PDO::PARAM_STR);
+                        $sql->bindValue(':critereAutre', $_POST['critereAutre'], PDO::PARAM_STR);
+
+                        $sql->execute();
+
+                        echo('<meta http-equiv="Refresh" content="0;url=login.php">'); 
+                    } catch (PDOException $e) {
+                        echo "ERREUR : ".$e->getMessage()."<br/>";
+                    }
+                    $sql = null;
+                    $db = null;
+                } 
+            } 
+        ?-->
     <header class="HautDePage">
         Pile ou Face : Lancez la pièce !
     </header>
-    <div class="row">
+    <div class="row no-gutters full">
         <div class="col-md-2 col-12">
             <div id="col">
                 <h5 class="centered">Historique</h5>
@@ -28,16 +73,16 @@
         </div>
         <div class="col-md-10 col-12">
             <div class="contenant">
-                <div id="main">
+                <div id="jeu">
                     <img src="https://raw.githubusercontent.com/RomainGallerne/Pile-ou-Face/main/images/Pile.png" id="idImg" class="piece">
                 </div>
-                <p id="nbLance">Nombre de lancés : 0/15</p>
-                <input type="button" id="lancer" value="Lancer la Pièce" onclick="Tirage()">
-            </div>
-            <div class="qcm">
-
+                <p id="nbLance" class="centre">Nombre de lancer : 0/10</p>
+                <input class="lancer" type="button" id="lancer" value="Lancer la Pièce" onclick="Tirage()">
             </div>
         </div>
-    </div>
+        <div id="qcm" class="col-0">
+            
+        </div>
+    </div>    
 </body>
 </html>

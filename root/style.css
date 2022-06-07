@@ -1,27 +1,40 @@
-input {
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.full {
+    height: 100%;
+    width: 100%;
+}
+
+.lancer {
     border: 2px solid black;
     border-radius: 5px;
     font-size: 100%;  
     background-color: #1897f9;
-    width: 40%;
-    margin-left: 30%;
-    margin-right: 30%;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
     margin-bottom: 5%;
     font-size: 100%;
 }
 
 .qcm {
-    background-color: #4273bb;
+    background-color: #1d2f95;
     color: #ffffff;
     min-height: 140px;
+    transition: all 1500ms ease-in-out;
 }
 
-input:hover{
-    background-color: #4eb2ff;
+input:hover:not(.disabled){
+    background-color: #73bef8;
     cursor: pointer;
 }
 
-p {
+.title {
     top: 100%;
     font-size: 500%;
     text-align: center;
@@ -36,7 +49,6 @@ p {
     background-color: #00183b;
     font-size: 400%;
     color: #ffffff;
-    border-bottom: 2px solid black;
     text-align: center;
 }
 
@@ -85,4 +97,24 @@ p {
     margin-left: 40%;
     margin-right: 40%;
     margin-bottom: 5%;
+}
+
+.colSansPadding{
+    padding:0;
+}
+
+.centre {
+    text-align: center;
+}
+
+.disabled {
+    background-color: #a7d6fa;
+    cursor: not-allowed;
+    border-radius: 5px;
+    font-size: 100%;  
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 5%;
+    font-size: 100%;
 }
