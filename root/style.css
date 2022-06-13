@@ -18,7 +18,7 @@ html, body {
     width: 60%;
     margin-left: 20%;
     margin-right: 20%;
-    margin-bottom: 5%;
+    bottom: 5%;
     font-size: 100%;
 }
 
@@ -59,7 +59,8 @@ input:hover:not(.disabled){
     margin-top: 5%;
     margin-left: 15%;
     margin-right: 15%;
-    height: 80%;
+    margin-bottom: 5%;
+    height: 90%;
     max-height: 401px;
 }
 
@@ -73,12 +74,17 @@ input:hover:not(.disabled){
     font-size: 100%;
     color: #ffffff;
     border-right: 2px solid black;
-    height: 100%;
+    min-height: 60%;
 }
 
+@media (min-width: 765px) {
+    #col{
+        height: 100%;
+    } 
+  }
+
+
 .rotated{
-    height: auto;
-    width: 100%;
     animation: rotate;
     object-fit: cover;
     transition: all 250ms ease-out;
@@ -86,17 +92,12 @@ input:hover:not(.disabled){
 }
 
 .piece {
-    height: 100%;
-    width: 100%;
     transition: all 250ms ease-out;
 }
 
 #idImg {
-    width: 20%;
-    height: 20%;
-    margin-left: 40%;
-    margin-right: 40%;
-    margin-bottom: 5%;
+    margin-left: 35%;
+    max-width: 30%;
 }
 
 .colSansPadding{
@@ -118,3 +119,13 @@ input:hover:not(.disabled){
     margin-bottom: 5%;
     font-size: 100%;
 }
+
+#jeu{
+    min-height: 50%;
+    max-height: 60%;
+} 
+
+#historique{
+    margin-bottom: 5%;
+} 
+

@@ -1,3 +1,10 @@
+<?php 
+    session_start();
+    if (!(isset($_SESSION['id'])) || !($_SESSION['fini'])){
+        echo('<meta http-equiv="Refresh" content="0;url=index.php">');
+    } 
+    
+?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -15,9 +22,9 @@
 <body>
     <header class="HautDePage">
         Pile ou Face : Lancez la pièce !
-    </header>
-    <div class="row no-gutters full">
-        <h1>Merci d'avoir répondu</h1>
+    </header><br/>
+    <div class="centre full">
+        <h1>Merci d'avoir répondu !</h1><br/>
         <h3>Vous pouvez maintenant fermer cette page</h3>
     </div>
 </body>
