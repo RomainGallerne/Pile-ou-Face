@@ -1,22 +1,44 @@
 <?php 
     session_start();
+
+    //DEBUG
+    /*
+    echo("session id : ".$_SESSION['id']."<br/>");
+    echo("session truque : ".$_SESSION['pagetruque']."<br/>");
+    echo("session  version page : ".$_SESSION['versionPage']."<br/>");
+    echo("get consentement : ".$_GET['consentement']."<br/>");
+    echo("session consentement : ".$_SESSION['consentement']."<br/>");
+    */
+
+    if($_SESSION['fini']){
+        echo('<meta http-equiv="Refresh" content="0;url=merci.php">');
+    }
+
     if ((!(isset($_SESSION['id']))) || $_SESSION['id'] == null){
         try {
             $db = new PDO('mysql:host=mysql-pile-ou-face.alwaysdata.net;
             dbname=pile-ou-face_bd','272589','9rYYEY44qzy2');
             $db->exec('source script.sql'); 
 
-            $sql = $db->prepare('SELECT COUNT(*) FROM pileouface');
+            $sql = $db->prepare('SELECT COUNT(*) FROM pileouface WHERE (idutilisateur>=0)');
             $sql->execute();
             $id = $sql->fetch(PDO::FETCH_ASSOC);
             $_SESSION['id'] = $id['COUNT(*)']; 
 
             if($_SESSION['id']%2 == 0){
-                $_SESSION['page'] = 0; //page non truqué 
+                $_SESSION['pagetruque'] = false; //page non truqué 
             } 
             else{
-                $_SESSION['page'] = 1; //page truqué
+                $_SESSION['pagetruque'] = true; //page truqué
             } 
+
+            if($_SESSION['id']%4 == 2 || $_SESSION['id']%4 == 3){
+                $_SESSION['versionPage'] = "normal"; //page normal
+            } 
+            else{
+                $_SESSION['versionPage'] = "scientifique"; //page scientifique
+            } 
+
         } catch (PDOException $e) {
             echo("ERREUR : ".$e->getMessage()."<br/>");
         }
@@ -25,14 +47,24 @@
         $sql = null;
         $_SESSION['fini'] = false;
     } 
-    if($_SESSION['fini']){
-        echo('<meta http-equiv="Refresh" content="0;url=merci.php">');
-    } 
+    else{
+        if($_GET['consentement']=="Je consens"){ 
+            $_SESSION['consentement'] = $_GET['consentement']; 
+        } 
+        if($_SESSION['consentement']=='Je consens'){ 
+            if($_SESSION['versionPage']=="scientifique"){
+                echo('<meta http-equiv="Refresh" content="0;url=enquete.php">');
+            } 
+            else{
+                echo('<meta http-equiv="Refresh" content="0;url=jeu.php">');
+            } 
+        } 
+    }  
 ?>
 <!doctype html>
 <html lang="fr">
 <head>
-    <title>Pile ou Face</title>
+    <title>Pile ou Face : Accueil</title>
     <meta charset="utf-8"/>
     <link rel="icon" href="piece.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -45,81 +77,24 @@
 </head>
 
 <body>
-    <?php
-        try {
-            $db = new PDO('mysql:host=mysql-pile-ou-face.alwaysdata.net;
-            dbname=pile-ou-face_bd','272589','9rYYEY44qzy2');
-            $db->exec('source script.sql'); 
-
-            if (isset($_POST['truque']) && isset($_POST['pourquoi'])){
-                if (isset($_POST['apriori'])){
-
-                    //Affichage Debug
-
-                    /*echo("id : ".$_SESSION['id']."<br/>");
-                    echo("page : ".$_SESSION['page']."<br/>");
-                    echo("truque : ".$_POST['truque']."<br/>");
-                    echo("raison : ".$_POST['pourquoi']."<br/>");
-                    echo("apriori : ".$_POST['apriori']."<br/>");
-                    echo("critereXP : ".$_POST['critereXP']."<br/>");
-                    echo("criterePersonne : ".$_POST['criterePersonne']."<br/>");
-                    echo("critereReputation : ".$_POST['critereReputation']."<br/>");
-                    echo("critereAutre : ".$_POST['critereAutre']."<br/>");*/
-
-                    $sql = $db->prepare('INSERT INTO pileouface VALUES (:idutilisateur,:typepage,:truque,:raison,:apriori,:critereXP,:criterePersonne,:critereReputation,:critereAutre)');
-                    $sql->bindValue(':idutilisateur', $_SESSION['id'],PDO::PARAM_STR);
-                    $sql->bindValue(':typepage', $_SESSION['page'], PDO::PARAM_STR);
-                    $sql->bindValue(':truque', $_POST['truque'], PDO::PARAM_STR);
-                    $sql->bindValue(':raison', $_POST['pourquoi'], PDO::PARAM_STR);
-                    $sql->bindValue(':apriori', $_POST['apriori'], PDO::PARAM_STR);
-                    $sql->bindValue(':critereXP', $_POST['critereXP'], PDO::PARAM_STR);
-                    $sql->bindValue(':criterePersonne', $_POST['criterePersonne'], PDO::PARAM_STR);
-                    $sql->bindValue(':critereReputation', $_POST['critereReputation'], PDO::PARAM_STR);
-                    $sql->bindValue(':critereAutre', $_POST['critereAutre'], PDO::PARAM_STR);
-
-                    $sql->execute();
-
-                    //PAGE DE REMERCIMENT
-                    $_SESSION['fini'] = true; 
-                    echo('<meta http-equiv="Refresh" content="0;url=merci.php">');
-                }
-            }
-        } catch (PDOException $e) {
-            echo "ERREUR : ".$e->getMessage()."<br/>";
-        }
-        $sql = null;
-        $db = null; 
-    ?>
-    <header class="HautDePage">
-        Pile ou Face : Lancez la pièce !
-    </header>
-    <div class="row no-gutters full">
-        <div class="col-md-2 col-12">
-            <div id="col">
-                <h5 class="centered">Historique</h5>
-                <ul id="historique">
-
-                </ul>
+    <div class="legal">
+        <form>
+            <h3>Bienvenue !</h3>
+            <p>
+                Bienvenue et merci à vous de bien vouloir prendre le temps de répondre à cette courte enquête ! (~2 minutes)<br/>
+                Il vous sera demander d'interagir 10 fois avec le jeu de pile ou face qui va suivre. Après ces 10 lancers, vous pourrez passer à la suite.<br/><br/>
+                Nous collectons vos données de manière totalement anonyme et à usage scientifique uniquement, aucune autres données que celles vous étant explicitement demandées ne seront collectées.<br/>
+                Les données collectées seront conservées dans une base de données sécurisée pour une durée maximale de 1 an. <br/>
+                Passé ce délai, elles seront supprimées.<br/><br/>
+                Si vous souhaitez faire supprimer vos données avant ce délai, merci de contacter l'adresse mail suivante : <a href="mailto:pileouface.lirmm@gmail.com">pileouface.lirmm@gmail.com</a> 
+            </p><br/>
+            <input class="lancer" type="submit" value="Je consens" name="consentement"></input><br/> 
+            <div class="container fluid">
+                <img src="logo_CNRS_50.png" class="logoAUTRE">
+                <img src="Logo-LIRMM-long_329x113.png" class="logoLIRMM">
+                <img src="logo_um_50.png" class="logoAUTRE">
             </div>
-        </div>
-        <div class="col-md-10 col-12">
-            <div class="contenant">
-                <div id="jeu">
-                    <img src="https://raw.githubusercontent.com/RomainGallerne/Pile-ou-Face/main/images/Pile.png" id="idImg" class="piece">
-                </div>
-                <p id="nbLance" class="centre">Nombre de lancer : 0/10</p>
-                <input class="lancer" type="button" id="lancer" value="Lancer la Pièce" onclick="">
-            </div>
-        </div>
-        <div id="qcm" class="col-0">
-            
-        </div>
-    </div>  
-    <script>
-        <?php
-            echo("var truque =0+".$_SESSION['page'].";");
-        ?>
-        $('#lancer').attr('onclick',"Tirage("+truque+")");
-    </script>  
+        </form>
+    </div>
 </body>
 </html>
